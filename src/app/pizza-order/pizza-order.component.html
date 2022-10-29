@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <div align="center"><img alt="pizzaimg" src="../../assets/images/pizzaMaker.jpg"><span>
+            <h1>Build Your Pizza</h1>
+        </span></div>
+    <div class="row">
+  
+        <div class="col-md-2"></div>
+        <div class="col-md-6 shadow-lg p-3 mb-5 bg-white rounded">
+            <div *ngIf="pizzaOrderId == 0">
+
+                <div class="form-group row" align="center">
+                    <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">
+                        <h5>Crust Size</h5>
+                    </label>
+                    <div class="col-sm-8">
+                        <select id="crust" (change)="calculatePizzaPrice('crust')" [(ngModel)]="pizza.crust"
+                            class="form-control">
+                            <option *ngFor="let crust of pizzaMenu.crust" [selected]="crust.isSelected"
+                                [value]="crust.id">{{crust.name}}--Rs. {{crust.price}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row" align="center">
+                    <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">
+                        <h5>Sausage</h5>
+                    </label>
+                    <div class="col-sm-8">
+                        <select id="sausage" (change)="calculatePizzaPrice('sausage')" [(ngModel)]="pizza.sausage"
+                            class="form-control">
+                            <option *ngFor="let saus of pizzaMenu.sausage" [selected]="saus.isSelected"
+                                [value]="saus.id">{{saus.name}}--Rs. {{saus.price}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row" align="center">
+                    <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">
+                        <h5>Add On</h5>
+                    </label>
+                    <div class="col-sm-8">
+                        <select id="sausage" (change)="calculatePizzaPrice('adOn')" [(ngModel)]="pizza.addOnCheeze"
+                            class="form-control">
+                            <option *ngFor="let adOn of pizzaMenu.addOnCheeze" [selected]="adOn.isSelected"
+                                [value]="adOn.id">{{adOn.name}}--Rs. {{adOn.price}}</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group row mb-5 bg-white rounded">
+                    <h5 align="center">Toppings</h5>
+                    <div class="col-sm-3" *ngFor="let top of pizzaMenu.toppings">
+                        <input type="checkbox" (change)="calculatePizzaPrice('toppings', top)"
+                            [(ngModel)]="top.isSelected" class="form-check-input" id="{{top.id}}">
+                        <label class="form-check-label" for="{{top.id}}">{{top.name}} - Rs. {{top.price}}</label>
+                    </div>
+                </div>
+
+                <div class="form-group row" align="center">
+                    <button (click)="savePizzaOrder()" class="btn btn-primary">Place Order</button>
+                </div>
+
+            </div>
+            <div *ngIf="pizzaOrderId > 0" align="center" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Order Details</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Order No. : {{pizzaOrderId}}</h6>
+                    <p class="card-text">Thanks for your order..!</p>
+                    <a (click)="pizzaOrderId = 0" class="card-link">Order Again</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 shadow-lg p-3 mb-5 bg-white rounded">
+            <div align="center"><img alt="pizzaimg" height="180px" width="180px"
+                    src="../../assets/images/pizza.jpg"><span>
+                    <h1>Pizza :Rs. {{calculatedPrice}}</h1>
+                </span></div>
+        </div>
+
+    </div>
+</div>
